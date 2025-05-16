@@ -18,10 +18,13 @@ env.Replace(
     SIZEFLAGS="--format=berkeley"
 )
 
+framework_dir = env.PioPlatform().get_package_dir("framework-mycore")
+
 env.Append(
     # CFLAGS = -ffreestanding -Os --specs=nano.specs -ffunction-sections -Wl,--gc-sections
     # LDFLAGS = -T $(LINKER) -e main 
-    LINKFLAGS=["-ffreestanding", "-Os", "--specs=nano.specs", "-ffunction-sections", "-Wl,--gc-sections"],
+    CCFLAGS=["-ffreestanding", "-Os", "--specs=nano.specs", "-ffunction-sections", "-Wl,--gc-sections"],
+    LINKFLAGS=["-T", join(framework_dir, "src", "linker_script.ld")],
     CPPDEFINES=["F_CPU=" + board.get("build.f_cpu")],
     CPPPATH=[join("$PROJECT_DIR", "include")],
     LIBSOURCE_DIRS=[join(env.subst("$PROJECT_DIR"), "lib")],
