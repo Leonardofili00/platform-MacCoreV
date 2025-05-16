@@ -16,12 +16,14 @@
 ---
   
 ### Cose da chiarire
-- Come si fa per installare il package?
-- Come fare a creare un loader per questa board?
+- [ ] Come si fa per installare il package?
+- [ ] Come fare a creare un loader per questa board?
       
     In questo caso il loader sarebbe uno script di python (che ho già) che in sostanza legge il file *.elf generato e lo converte un un file header in una cartella che sarebbe da definire nell'environment di PlatformIO (di seguito PIO)
 
-- Come faccio a digli di compilare le SysCall (nel file `framework-MacCoreV/src/syscalls.c`) e di usare la funzione `_init` (definita in `framework-MacCoreV/src/startup.c`) come codice di startup?
+- [ ] Come faccio a digli di compilare le SysCall (nel file `framework-MacCoreV/src/syscalls.c`) e di usare la funzione `_init` (definita in `framework-MacCoreV/src/startup.c`) come codice di startup?
 
-- Dove trovo, e dove devo copiare i file della NewLib affinchè usi le nano spech?
+- [x]  Dove trovo, e dove devo copiare i file della NewLib affinchè usi le nano spech?
+    
+    > Ho risolto io!! 
 
