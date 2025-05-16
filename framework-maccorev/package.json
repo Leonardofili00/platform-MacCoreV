@@ -4,7 +4,7 @@
   "description": "Framework minimal per core baremetal",
   "keywords": ["framework", "baremetal"],
   "license": "MIT",
-  "system": ["linux_x86_64", "windows_amd64", "darwin_x86_64"],
+  "system": ["linux_x86_64"],
   "export": {
     "include": ["src/*"]
   }

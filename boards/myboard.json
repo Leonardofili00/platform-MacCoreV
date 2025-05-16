@@ -1,16 +1,16 @@
 {
   "build": {
-    "core": "mycore",
+    "core": "maccorev",
     "cpu": "rv32i",
-    "f_cpu": "50000000L",
-    "mcu": "mycore",
+    "f_cpu": "40000000L",
+    "mcu": "maccorev",
     "extra_flags": "-DARDUINO_myboard"
   },
-  "frameworks": ["mycore"],
+  "frameworks": ["maccorev"],
   "name": "My Custom RISC-V Board",
   "upload": {
     "maximum_ram_size": 8192,
-    "maximum_size": 65536,
+    "maximum_size": 16384,
     "protocol": "custom"
   },
   "url": "https://example.com",

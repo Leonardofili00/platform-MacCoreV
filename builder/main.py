@@ -7,9 +7,10 @@ board = env.BoardConfig()
 
 env.Replace(
     AS="riscv32-unknown-elf-as",
-    CC="riscv32-unknown-elf-gcc",
-    CXX="riscv32-unknown-elf-g++",
     AR="riscv32-unknown-elf-ar",
+    CXX="riscv32-unknown-elf-g++",
+    CC="riscv32-unknown-elf-gcc",
+    LD="riscv32-unknown-elf-ld",
     OBJCOPY="riscv32-unknown-elf-objcopy",
     RANLIB="riscv32-unknown-elf-ranlib",
     SIZETOOL="riscv32-unknown-elf-size",
@@ -18,7 +19,9 @@ env.Replace(
 )
 
 env.Append(
-    LINKFLAGS=["-nostartfiles", "-Wl,--gc-sections"],
+    # CFLAGS = -ffreestanding -Os --specs=nano.specs -ffunction-sections -Wl,--gc-sections
+    # LDFLAGS = -T $(LINKER) -e main 
+    LINKFLAGS=["-ffreestanding", "-Os", "--specs=nano.specs", "-ffunction-sections", "-Wl,--gc-sections"],
     CPPDEFINES=["F_CPU=" + board.get("build.f_cpu")],
     CPPPATH=[join("$PROJECT_DIR", "include")],
     LIBSOURCE_DIRS=[join(env.subst("$PROJECT_DIR"), "lib")],
