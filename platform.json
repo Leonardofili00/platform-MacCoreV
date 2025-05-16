@@ -1,18 +1,18 @@
 {
-  "name": "platform-mycore",
+  "name": "platform-MacCoreV",
   "version": "1.0.0",
-  "description": "Piattaforma PlatformIO di esempio per core custom RISC-V",
+  "description": "Piattaforma PlatformIO MacCoreV",
   "keywords": ["riscv", "baremetal"],
   "license": "MIT",
   "engines": {
     "platformio": ">=5.0.0"
   },
   "packages": {
-    "toolchain-mycore": {
+    "toolchain-MacCoreV": {
       "type": "toolchain",
       "version": ">=1.0.0"
     },
-    "framework-mycore": {
+    "framework-MacCoreV": {
       "type": "framework",
       "version": ">=1.0.0"
     }
