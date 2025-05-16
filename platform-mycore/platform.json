@@ -1,0 +1,23 @@
+{
+  "name": "platform-mycore",
+  "version": "1.0.0",
+  "description": "Piattaforma PlatformIO di esempio per core custom RISC-V",
+  "keywords": ["riscv", "baremetal"],
+  "license": "MIT",
+  "engines": {
+    "platformio": ">=5.0.0"
+  },
+  "packages": {
+    "toolchain-mycore": {
+      "type": "toolchain",
+      "version": ">=1.0.0"
+    },
+    "framework-mycore": {
+      "type": "framework",
+      "version": ">=1.0.0"
+    }
+  },
+  "boards": {
+    "myboard": "boards/myboard.json"
+  }
+}

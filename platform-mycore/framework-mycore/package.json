@@ -1,0 +1,11 @@
+{
+  "name": "framework-mycore",
+  "version": "1.0.0",
+  "description": "Framework minimal per core baremetal",
+  "keywords": ["framework", "baremetal"],
+  "license": "MIT",
+  "system": ["linux_x86_64", "windows_amd64", "darwin_x86_64"],
+  "export": {
+    "include": ["src/*"]
+  }
+}

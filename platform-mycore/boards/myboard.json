@@ -1,0 +1,18 @@
+{
+  "build": {
+    "core": "mycore",
+    "cpu": "rv32i",
+    "f_cpu": "50000000L",
+    "mcu": "mycore",
+    "extra_flags": "-DARDUINO_myboard"
+  },
+  "frameworks": ["mycore"],
+  "name": "My Custom RISC-V Board",
+  "upload": {
+    "maximum_ram_size": 8192,
+    "maximum_size": 65536,
+    "protocol": "custom"
+  },
+  "url": "https://example.com",
+  "vendor": "MyCompany"
+}
