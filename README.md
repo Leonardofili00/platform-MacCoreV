@@ -5,10 +5,11 @@
 ---
 
 ## Modifiche da fare al codice:
-- [ ] platform.json: assicurarti che i nomi corrispondano ai tuoi package
-- [ ] toolchain-maccorev/package.json: Che il sistema operativo sia corretto
+- [X] platform.json: assicurarti che i nomi corrispondano ai tuoi package
+- [x] toolchain-maccorev/package.json: Che il sistema operativo sia corretto
 - [ ] loader-maccorev/scripts/run_after_build.py: inserire lo script che deve essere eseguito alla fine della build
-- [ ] Nel progetto in cui usi la piattaforma, il file platformio.ini deve specificare:
+    > Non ci occupiamo di questo ora, prima facciamolo compilare
+- [x] Nel progetto in cui usi la piattaforma, il file platformio.ini deve specificare:
 ```
 [env:myboard]
 platform = /percorso/assoluto/o/nome_registrato/platform-maccorev
