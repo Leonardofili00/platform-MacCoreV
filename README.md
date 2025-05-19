@@ -24,41 +24,37 @@
 
 ## Installazione
 OPZIONI:
-### 1. Stai usando una piattaforma PlatformIO personalizzata (come la tua platform-mycore)
+### 1. Installare una piattaforma PlatformIO personalizzata (come la tua platform-maccorev)
 - Non bisogna installare nulla con `pio pkg install`
-- Nel progetto PlatformIO nel file platformio.ini impostare:
-    > [env:myboard]  
-    platform = file:///percorso/assoluto/o/relativo/platform-mycore  
+- Nel progetto PlatformIO nel file `platformio.ini` impostare:
+    ```ini
+    [env:myboard]  
+    platform = file:///percorso/assoluto/o/relativo/platform-maccorev  
     board = myboard
-    framework = mycore
+    framework = maccorev
+    ```
 
-### 2. Vuoi installare un pacchetto da testare separatamente (toolchain o framework)
+### 2. Installare un pacchetto da testare separatamente (toolchain o framework)
 
-**Questo metodo è utile solo se vuoi riutilizzare il pacchetto in più piattaforme.**
+Vai nella cartella della tua platform (es. platform-maccorev):
 
-Vai nella cartella del tuo pacchetto (es. toolchain-mycore):
-
-`cd toolchain-mycore`
+```bash
+cd platform-maccorev
+```
 
 Installa localmente:
-
-`pio pkg pack`
-
-Questo crea un file tipo:
-
-`toolchain-mycore-1.0.0.tar.gz`
-
-Poi:
-
-`pio pkg install --global --storage-dir ~/.platformio/packages --package toolchain-mycore-1.0.0.tar.gz`
+```bash
+pio pkg install --global -t ./toolchain-maccorev
+```
 
 oppure per framework:
-
-`pio pkg install --global --storage-dir ~/.platformio/packages --package framework-m`
-
+```bash
+pio pkg install --global -t ./framework-maccorev
+```
 ---
 
 ## Creare un loader per la board
+> Ovviamente visto che si è fermato tutto prima da qui in poi non ho nemmeno guardato
 
 Nel tuo progetto crea una cartella (che per esempio chiamiamo `convert`) contenente lo script `run_after_built.py`
 
