@@ -2,7 +2,14 @@
 #include <unistd.h>
 #include <errno.h>
 #include <stdint.h>
-#include <UART.h>
+
+enum UARTReadMode_t{
+  UART_READ_BLOCKING,
+  UART_READ_NONBLOCKING
+};
+
+extern uint16_t UARTRead (uint8_t* data, uint32_t size, enum UARTReadMode_t mode);
+extern void UARTWrite (const uint8_t* data, uint32_t size);
 
 extern uint8_t __heap_start;
 static uint8_t *heap_ptr = &__heap_start;

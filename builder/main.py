@@ -5,7 +5,6 @@ env = DefaultEnvironment()
 platform = env.PioPlatform()
 board = env.BoardConfig()
 
-# Configura toolchain RISC-V
 env.Replace(
     AS="riscv32-unknown-elf-as",
     AR="riscv32-unknown-elf-ar",
@@ -18,11 +17,9 @@ env.Replace(
     SIZEFLAGS="--format=berkeley"
 )
 
-# Path al framework
-framework_dir = platform.get_package_dir("framework-MacCoreV")
-assert framework_dir, "framework-MacCoreV non trovato!"
+framework_dir = platform.get_package_dir("framework-maccorev")
+assert framework_dir, "framework-maccorev non trovato!"
 
-# Aggiunge flags di compilazione/linking
 env.Append(
     CCFLAGS=[
         "-ffreestanding",
@@ -32,7 +29,7 @@ env.Append(
         "-Wl,--gc-sections"
     ],
     LINKFLAGS=[
-        "-Wl,-e,_init",  # Imposta _init come entry point
+        "-Wl,-e,_init",
         "-T", join(framework_dir, "src", "linker_script.ld")
     ],
     CPPDEFINES=[
@@ -47,7 +44,6 @@ env.Append(
     ]
 )
 
-# Builder per convertire ELF in HEX
 env.Append(BUILDERS=dict(
     ElfToHex=Builder(
         action="riscv32-unknown-elf-objcopy -O ihex $SOURCE $TARGET",
@@ -56,8 +52,16 @@ env.Append(BUILDERS=dict(
     )
 ))
 
-# Compila i file sorgente dal framework (syscalls.c, startup.c, ecc.)
-env.BuildSources(
-    join("$BUILD_DIR", "FrameworkMacCoreV"),
-    join(framework_dir, "src")
+# Qui definisci la variabile sources
+sources = env.Glob(join(framework_dir, "src", "*.c"))
+
+program = env.Program(
+    target=join("$BUILD_DIR", "firmware.elf"),
+    source=sources
 )
+
+env.Alias("buildprog", program)
+env.AlwaysBuild(program)
+
+# Definisci default target per PlatformIO
+Default(program)

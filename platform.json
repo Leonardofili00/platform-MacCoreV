@@ -1,20 +1,22 @@
 {
-  "name": "platform-maccorev",
+  "name": "maccorev",
+  "title": "MacCoreV",
   "version": "1.0.0",
   "description": "Piattaforma PlatformIO MacCoreV",
   "keywords": ["riscv", "baremetal"],
   "license": "MIT",
-  "engines": {
-    "platformio": ">=5.0.0"
+  "build": {
+    "core": "riscv",
+    "script": "builder/main.py"
   },
   "packages": {
     "toolchain-maccorev": {
       "type": "toolchain",
-      "version": ">=1.0.0"
+      "optional" : false
     },
     "framework-maccorev": {
       "type": "framework",
-      "version": ">=1.0.0"
+      "optional" : false
     }
   },
   "boards": {
