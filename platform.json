@@ -17,6 +17,10 @@
     "framework-maccorev": {
       "type": "framework",
       "optional" : false
+    },
+    "loader-maccorev": {
+    "type": "uploader",
+    "optional": true
     }
   },
   "boards": {

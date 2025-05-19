@@ -1,0 +1,9 @@
+{
+"name": "loader-maccorev",
+"version": "1.0.0",
+"description": "Script post-build per conversione ELF in .h",
+"keywords": ["loader", "uploader"],
+"export": {
+"scripts": "scripts"
+}
+}

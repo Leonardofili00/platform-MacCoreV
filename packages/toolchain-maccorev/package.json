@@ -2,10 +2,10 @@
   "name": "toolchain-maccorev",
   "version": "1.0.0",
   "description": "Toolchain RISC-V custom",
-  "keywords": ["toolchain", "gcc", "riscv"],
+  "keywords": ["toolchain", "riscv"],
   "license": "MIT",
   "system": ["linux_x86_64"],
   "export": {
-    "bin": ["bin/"]
+    "bin": "bin"
   }
 }

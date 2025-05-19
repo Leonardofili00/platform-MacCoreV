@@ -6,6 +6,6 @@
   "license": "MIT",
   "system": ["linux_x86_64"],
   "export": {
-    "include": ["src/*"]
+    "src": "src"
   }
 }

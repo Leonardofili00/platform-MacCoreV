@@ -7,11 +7,12 @@
     "extra_flags": "-DARDUINO_myboard"
   },
   "frameworks": ["maccorev"],
-  "name": "My Custom RISC-V Board",
+  "name": "MacCoreV Dev Board",
   "upload": {
     "maximum_ram_size": 8192,
     "maximum_size": 16384,
-    "protocol": "custom"
+    "protocol": "custom",
+    "command": "python3 $PACKAGE_DIR/scripts/run_after_build.py $SOURCE"
   },
   "url": "https://example.com",
   "vendor": "MyCompany"

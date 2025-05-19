@@ -5,6 +5,14 @@ env = DefaultEnvironment()
 platform = env.PioPlatform()
 board = env.BoardConfig()
 
+toolchain_dir = platform.get_package_dir("toolchain-maccorev")
+framework_dir = platform.get_package_dir("framework-maccorev")
+loader_dir = platform.get_package_dir("loader-maccorev")
+
+assert toolchain_dir and framework_dir
+
+env.PrependENVPath("PATH", join(toolchain_dir, "bin"))
+
 env.Replace(
     AS="riscv32-unknown-elf-as",
     AR="riscv32-unknown-elf-ar",
@@ -17,31 +25,11 @@ env.Replace(
     SIZEFLAGS="--format=berkeley"
 )
 
-framework_dir = platform.get_package_dir("framework-maccorev")
-assert framework_dir, "framework-maccorev non trovato!"
-
 env.Append(
-    CCFLAGS=[
-        "-ffreestanding",
-        "-Os",
-        "--specs=nano.specs",
-        "-ffunction-sections",
-        "-Wl,--gc-sections"
-    ],
-    LINKFLAGS=[
-        "-Wl,-e,_init",
-        "-T", join(framework_dir, "src", "linker_script.ld")
-    ],
-    CPPDEFINES=[
-        "F_CPU=" + board.get("build.f_cpu")
-    ],
-    CPPPATH=[
-        join("$PROJECT_DIR", "include"),
-        join(framework_dir, "src")
-    ],
-    LIBSOURCE_DIRS=[
-        join(env.subst("$PROJECT_DIR"), "lib")
-    ]
+    CCFLAGS=["-ffreestanding", "-Os", "--specs=nano.specs", "-ffunction-sections", "-Wl,--gc-sections"],
+    LINKFLAGS=["-Wl,-e,_init", "-T", join(framework_dir, "src", "linker_script.ld")],
+    CPPDEFINES=["F_CPU=" + str(board.get("build.f_cpu", "0"))],
+    CPPPATH=[join(framework_dir, "src")]
 )
 
 env.Append(BUILDERS=dict(
@@ -52,16 +40,10 @@ env.Append(BUILDERS=dict(
     )
 ))
 
-# Qui definisci la variabile sources
-sources = env.Glob(join(framework_dir, "src", "*.c"))
-
-program = env.Program(
-    target=join("$BUILD_DIR", "firmware.elf"),
-    source=sources
+env.BuildSources(
+join("$BUILD_DIR", "FrameworkMacCoreV"),
+join(framework_dir, "src")
 )
 
-env.Alias("buildprog", program)
-env.AlwaysBuild(program)
-
-# Definisci default target per PlatformIO
-Default(program)
+if loader_dir:
+    env.AddPostAction("$BUILD_DIR/${PROGNAME}.elf", f"python3 {join(loader_dir, 'scripts', 'run_after_build.py')} $BUILD_DIR/${{PROGNAME}}.elf")

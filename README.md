@@ -1,25 +1,21 @@
 # MacCoreV
 ## Descrizione
 [...]
+
 ---
+
 ## Modifiche da fare al codice:
-- [x] platform.json --> le keywords
-- [x] /boards/myboard.json --> modificare i dettagli della board
-- [x] /builder/main.py --> prefisso della toolchain; eventuali flag speciali
-- [x] /framework-MacCoreV/package.json --> I dettagli generali
-- [x] /framework-MacCoreV/src/... --> aggiungere: crt0.S, linker.ld, syscalls.c, eventuali startup .c/.s
-- [x] /toolchain-MacCoreV/package.json --> Il nome e il contenuto del campo bin, se diverso
-- [x] /toolchain-MacCoreV/bin/... --> icludere i binari essenziali riportati di seguito. **ASSICURARSI CHE I NOMI CORRISPONDANO NEL `builder/main.py`**  
-*Non includere tool inutili come gdb, readelf, nm, ecc. se non li usi.*
-    - `riscv32-unknown-elf-gcc` compilatore C
-    - `riscv32-unknown-elf-g++` compilatore C++ (se usi C++)
-    - `riscv32-unknown-elf-as` assembler
-    - `riscv32-unknown-elf-ld` linker (opzionale, GCC lo chiama da sé)
-    - `riscv32-unknown-elf-objcopy` conversione bin/hex
-    - `riscv32-unknown-elf-objdump` disassemblaggio (debug opzionale)
-    - `riscv32-unknown-elf-size` stampa dimensioni binario
-    - `riscv32-unknown-elf-ar` crea archivi .a
-    - `riscv32-unknown-elf-ranlib` indicizza .a
+- [ ] platform.json: assicurarti che i nomi corrispondano ai tuoi package
+- [ ] toolchain-maccorev/package.json: Che il sistema operativo sia corretto
+- [ ] loader-maccorev/scripts/run_after_build.py: inserire lo script che deve essere eseguito alla fine della build
+- [ ] Nel progetto in cui usi la piattaforma, il file platformio.ini deve specificare:
+```
+[env:myboard]
+platform = /percorso/assoluto/o/nome_registrato/platform-maccorev
+board = myboard
+framework = maccorev
+```
+
 ---
 
 ## Installazione
@@ -52,73 +48,6 @@ oppure per framework:
 pio pkg install --global -t ./framework-maccorev
 ```
 ---
-
-## Creare un loader per la board
-> Ovviamente visto che si è fermato tutto prima da qui in poi non ho nemmeno guardato
-
-Nel tuo progetto crea una cartella (che per esempio chiamiamo `convert`) contenente lo script `run_after_built.py`
-
-Codice `run_after_built.py`
-
-```
-Import("env")
-import os
-import subprocess
-
-def run_loader(source, target, env):
-elf_file = str(target[0])  # il file ELF generato
-output_dir = os.path.join(env["PROJECT_DIR"], "include", "generated")
-
-os.makedirs(output_dir, exist_ok=True)
-
-script_path = os.path.join(env["PROJECT_DIR"], "convert", "convert_elf_to_header.py")
-
-print(f"[LOADER] Eseguo: {script_path}")
-print(f"[LOADER] ELF: {elf_file}")
-print(f"[LOADER] Output: {output_dir}")
-
-result = subprocess.run(["python3", script_path, elf_file, output_dir], capture_output=True, text=True)
-
-if result.returncode != 0:
-    print("[LOADER] Errore:")
-    print(result.stderr)
-    raise Exception("Errore nel loader")
-else:
-    print("[LOADER] Fatto.")
-    print(result.stdout)
-
-env.AddPostAction("buildprog", run_loader)
-
-
-in `platformio.ini`:
-> [env:myboard]
-platform = file://../platform-MacCoreV
-board = myboard
-framework = MacCoreV
-
-extra_scripts = post:convert/run_after_build.py
-```
-
-Successivamente nella cartella `convert` aggiungiamo lo script da eseguire.
-
-**`run_after_built.py` collega il loader personalizzato al processo di build di PlatformIO**
-
----
-
-## Compilare le SysCall come codice di start up
-
-Assicurarti che in startup.c la funzione sia definita così
-
-```
-void _init(void) {  
-    // codice di inizializzazione, chiamata a main() ecc.  
-}
-```
-
-Per il linker aggiungere nel `builder/main.py` lo script
-> env.Replace(LDSCRIPT_PATH=join(framework_dir, "src", "linker_script.ld"))
-
-**NON HO MODIFICATO IL TUO CODICE DATO CHE PREFERISCO CHE TU FACCIA UNA VALUTAZIONE DEI CAMBIAMENTI**
 
 ## Cose da chiarire
 
