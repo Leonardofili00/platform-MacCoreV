@@ -12,11 +12,13 @@
   "packages": {
     "toolchain-maccorev": {
       "type": "toolchain",
-      "optional" : false
+      "optional" : false,
+      "version" : "https://github.com/alanmasu/toolchain-maccorev.git"
     },
     "framework-maccorev": {
       "type": "framework",
-      "optional" : false
+      "optional" : false,
+      "version": "https://github.com/alanmasu/framework-maccorev.git"
     }
   },
   "boards": {
