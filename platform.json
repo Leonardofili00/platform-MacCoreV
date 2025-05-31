@@ -10,10 +10,11 @@
     "script": "builder/main.py"
   },
   "packages": {
-    "toolchain-maccorev": {
+    "toolchain-riscv": {
+      "optional": false,
       "type": "toolchain",
-      "optional" : false,
-      "version" : "https://github.com/alanmasu/toolchain-maccorev.git"
+      "owner": "platformio",
+      "version": "~1.80300.0"
     },
     "framework-maccorev": {
       "type": "framework",
